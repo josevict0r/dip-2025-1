@@ -15,15 +15,16 @@ def generate_image(seed, width, height, mean, std):
     Returns:
         image (numpy.ndarray): The generated image.
     """
-    ### START CODE HERE ###
-    ### TODO
-    ### END CODE HERE ###
+    
+    np.random.seed(seed)
+    image = np.random.normal(loc=mean, scale=std, size=(height, width))
+
     return image
 
 if __name__ == "__main__":
 
     # Test code
-    seed = 0
+    seed = 21111270
     width = 3
     height = 5
     mean = 128
