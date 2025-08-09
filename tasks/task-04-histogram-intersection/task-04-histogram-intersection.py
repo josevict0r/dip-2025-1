@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 def compute_histogram_intersection(img1: np.ndarray, img2: np.ndarray) -> float:
     """
@@ -27,8 +28,28 @@ def compute_histogram_intersection(img1: np.ndarray, img2: np.ndarray) -> float:
 
     ### START CODE HERE ###
     # Step 1: initialize base image with 0.5
+    histograma1, _ = np.histogram(img1, bins=256) # gerando
+    histograma2, _ = np.histogram(img2, bins=256)
+
+    histograma1 = histograma1/ histograma1.sum() # normalizando
+    histograma2 = histograma2/ histograma2.sum()
+
     intersection = 0.0
-    ### END CODE HERE ###
+    for i in range(256):
+            intersection += min(histograma1[i], histograma2[i])
 
+    #return float(intersection)
+    return histograma1, histograma2, float(intersection)
 
-    return float(intersection)
+img1 = np.random.randint(0, 256, (100, 100), dtype=np.uint8)
+img2 = np.random.randint(0, 256, (100, 100), dtype=np.uint8)
+
+hist1, hist2, intersection = compute_histogram_intersection(img1, img2)
+x = np.arange(256)
+plt.bar(x, hist1, color='red', label='Image 1', alpha=0.5)
+plt.bar(x, hist2, color='black', label='Image 2', alpha=0.5)  # alpha makes overlap visible
+plt.title(f'Overlapping Normalized Histograms i={intersection}')
+plt.xlabel('Pixel Value')
+plt.ylabel('Normalized Frequency')
+plt.legend()
+plt.show()
