@@ -22,10 +22,7 @@ def linear_combination(i1: np.ndarray, i2: np.ndarray, a1: float, a2: float) -> 
     if i1.shape != i2.shape:
         raise ValueError("Input images must have the same dimensions.")
 
-    ### START CODE HERE ###
-    ### TODO
-    i_out = None
-    ### END CODE HERE ###
+    i_out = cv.addWeighted(i1, a1, i2, a2, 0)
 
     return i_out
 
@@ -36,7 +33,7 @@ if __name__ == "__main__":
 
     This script:
         1. Loads two images from disk ('dog.png' and 'bird.png').
-        2. Creates OpenCV windows for each image and a result window.
+        2. Creates OpenCV windows for each image and a i_out window.
         3. Initializes a trackbar that controls the blending factor alpha in the range [0, 1].
         4. Continuously updates the linear combination of the two images based on the trackbar value.
         5. Displays the original images and the blended output in real time.
@@ -73,7 +70,7 @@ if __name__ == "__main__":
         # Blend images
         output = linear_combination(i1, i2, alpha, beta)
 
-        # Show result
+        # Show i_out
         cv.imshow('I1', i1)
         cv.imshow('I2', i2)
         cv.imshow(window_name, output)
